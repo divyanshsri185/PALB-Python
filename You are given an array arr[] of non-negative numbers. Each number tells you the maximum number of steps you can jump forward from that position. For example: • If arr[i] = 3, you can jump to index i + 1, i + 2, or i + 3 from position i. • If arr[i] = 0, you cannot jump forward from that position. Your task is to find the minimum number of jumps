@@ -1,0 +1,34 @@
+def minJumps(arr):
+    n = len(arr)
+
+    # Edge cases
+    if n == 1:
+        return 0
+    if arr[0] == 0:
+        return -1
+
+    maxReach = arr[0]
+    steps = arr[0]
+    jumps = 1
+
+    for i in range(1, n):
+        # Reached the end
+        if i == n - 1:
+            return jumps
+
+        # Update max reach
+        maxReach = max(maxReach, i + arr[i])
+        steps -= 1
+
+        # If no steps left, we must jump
+        if steps == 0:
+            jumps += 1
+
+            # If current index is beyond max reach
+            if i >= maxReach:
+                return -1
+
+            # Reinitialize steps
+            steps = maxReach - i
+
+    return -1
