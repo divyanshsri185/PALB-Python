@@ -1,0 +1,44 @@
+def minimizeHeight(arr, k):
+    n = len(arr)
+    
+    # Step 1: Sort the array
+    arr.sort()
+    
+    # Initial difference
+    ans = arr[n-1] - arr[0]
+    
+    # Smallest and largest after modification
+    small = arr[0] + k
+    big = arr[n-1] - k
+    
+    # If small becomes bigger than big, swap
+    if small > big:
+        small, big = big, small
+    
+    # Traverse middle elements
+    for i in range(1, n-1):
+        subtract = arr[i] - k
+        add = arr[i] + k
+        
+        # Skip if it does not affect range
+        if subtract >= small or add <= big:
+            continue
+        
+        # Update small or big
+        if big - subtract <= add - small:
+            small = subtract
+        else:
+            big = add
+    
+    return min(ans, big - small)
+
+
+# Example 1
+arr = [1, 5, 8, 10]
+k = 2
+print(minimizeHeight(arr, k))  # Output: 5
+
+# Example 2
+arr = [3, 9, 12, 16, 20]
+k = 3
+print(minimizeHeight(arr, k))  # Output: 11
