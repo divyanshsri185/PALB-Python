@@ -1,0 +1,33 @@
+def min_swaps(arr, k):
+    n = len(arr)
+
+    # Step 1: count elements <= k
+    window_size = sum(1 for x in arr if x <= k)
+
+    # Step 2: count bad elements in first window
+    bad = sum(1 for x in arr[:window_size] if x > k)
+
+    ans = bad
+    i = 0
+    j = window_size
+
+    # Step 3: slide the window
+    while j < n:
+        # remove left element
+        if arr[i] > k:
+            bad -= 1
+
+        # add right element
+        if arr[j] > k:
+            bad += 1
+
+        ans = min(ans, bad)
+
+        i += 1
+        j += 1
+
+    return ans
+
+
+# Test cases
+print(
