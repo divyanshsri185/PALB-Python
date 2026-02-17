@@ -1,0 +1,11 @@
+def is_palindrome(num):
+    # convert number to string and reverse it
+    return str(num) == str(num)[::-1]
+
+
+def all_palindrome(arr):
+    for num in arr:
+        if not is_palindrome(num):
+            return False
+    return True
+
