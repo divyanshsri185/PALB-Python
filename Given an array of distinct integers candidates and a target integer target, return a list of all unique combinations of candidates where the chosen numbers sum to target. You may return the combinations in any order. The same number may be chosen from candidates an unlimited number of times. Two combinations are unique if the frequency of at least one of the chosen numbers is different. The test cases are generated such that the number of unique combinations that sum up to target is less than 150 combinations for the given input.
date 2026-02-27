@@ -1,0 +1,29 @@
+def combinationSum(candidates, target):
+    result = []
+
+    def backtrack(start, path, remaining):
+        # base cases
+        if remaining == 0:
+            result.append(path[:])
+            return
+        if remaining < 0:
+            return
+
+        for i in range(start, len(candidates)):
+            # choose element
+            path.append(candidates[i])
+
+            # same index allowed (unlimited use)
+            backtrack(i, path, remaining - candidates[i])
+
+            # undo choice (backtrack)
+            path.pop()
+
+    backtrack(0, [], target)
+    return result
+
+
+# Examples
+print(combinationSum([2,3,6,7], 7))
+print(combinationSum([2,3,5], 8))
+print(combinationSum([2], 1))
